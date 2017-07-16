@@ -20,30 +20,6 @@ async function go() {
 	await client.query(craft.recipes.map(getMaterialUsedInStatements).reduce((a, b) => a.concat(b)))
 }
 
-function getItemTypeLabel(type) {
-	switch (type.toLowerCase()) {
-		case 'base': return 'Base'
-		case 'block': return 'Block'
-		case 'food': return 'Food'
-		case 'explosive': return 'Explosive'
-		case 'weapon': return 'Weapon'
-		case 'potion': return 'Potion'
-		case 'equipment': return 'Equipment'
-		case 'tool': return 'Tool'
-		case 'recipe': return 'Recipe'
-		case 'tear': return 'Tear'
-		case 'portcrystal': return 'PortCrystal'
-		case 'power': return 'Power'
-		case 'cornerstone': return 'Cornerstone'
-		case 'container': return 'Container'
-		case 'accessory': return 'Accessory'
-		case 'fertilizer': return 'Fertilizer'
-		case 'entity': return 'Entity'
-		default:
-			throw new Error(`type ${type} cannot be mapped to a label`)
-	}
-}
-
 function getItemStatement(item) {
 	const paramsList = Object.keys(item).filter(key => {
 		return typeof (item[key]) != 'object' && key != 'name'
