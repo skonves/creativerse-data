@@ -1,6 +1,6 @@
-const Neo = require('./neo-client')
+const Neo = require('neo4j-http-client')
 
-const client = new Neo('http://localhost:7474', 'bmVvNGo6Z29vZDJnbw==')
+const client = new Neo('http://localhost:7474', 'neo4j', 'good2go')
 
 go()
 

@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "superagent": "^3.5.2"
+    "neo4j-http-client": "^0.2.0"
   }
 }
