@@ -127,4 +127,11 @@ with n, r, u, mat, collect({option: i}) as options
 with n, r, collect({required: u, material: mat, options: options}) as materials
 return n as result, collect({recipe: r, materials: materials}) as recipes
 
+// GET SCHEMA
+MATCH p=(a)-[r]->(b)
+UNWIND labels(a) as aa
+UNWIND labels(b) as bb
+return DISTINCT "(" + aa + ")-[" + type(r) + "]->(" + bb + ")" limit 25
+
+
 */
