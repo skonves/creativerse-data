@@ -119,12 +119,12 @@ function getMaterialUsedInStatements(recipe) {
 
 Crafting Guide Query
 
-MATCH (:Item {name: "chair_stone"})<-[*0..20]-(r:Recipe)
+MATCH (:Item {name: "chair_stone"})<-[*0..100]-(r:Recipe)
 with Distinct r
 MATCH p=(n:Item)<-[:RESULTS_IN]-(r)<-[u:USED_IN]-(mat)
 OPTIONAL MATCH (mat)<-[:IS]-(i:Item)
-with n, r, u, mat, collect({option: i}) as options
-with n, r, collect({required: u, material: mat, options: options}) as materials
+with n, r, u, mat, collect(i) as options
+with n, r, collect({required_count: u.count, material: mat, options: options}) as materials
 return n as result, collect({recipe: r, materials: materials}) as recipes
 
 // GET SCHEMA
