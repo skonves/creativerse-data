@@ -11,9 +11,9 @@ async function go() {
 	await client.query(items.map(getItemStatement))
 	await client.query(items.map(getMaterialStatements).reduce((a, b) => a.concat(b)))
 	await client.query(items.map(getItemMaterialStatements).reduce((a, b) => a.concat(b)))
-	await client.query(craft.recipes.filter(recipe => recipe.unlock_on_item).map(getDiscoversItemStatement))
 	await client.query(craft.recipes.filter(recipe => recipe.unlock_materials).map(getUnlocksItemStatement).reduce((a, b) => a.concat(b)))
 	await client.query(craft.recipes.map(getRecipeStatement))
+	await client.query(craft.recipes.filter(recipe => recipe.unlock_on_item).map(getDiscoversItemStatement))
 	await client.query(items.filter(item => item.craft_id).map(getTeachesStatement))
 	await client.query(craft.recipes.map(getResultsInStatement))
 	await client.query(craft.recipes.map(getUsedInStatements).reduce((a, b) => a.concat(b)))
@@ -53,7 +53,7 @@ function getItemMaterialStatements(item) {
 
 function getDiscoversItemStatement(recipe) {
 	return {
-		statement: `MATCH (a:Item {name: "${recipe.unlock_on_item}"}),(b:Item {name: "${recipe.result}"}) MERGE (a)-[:DISCOVERS]->(b)`,
+		statement: `MATCH (a:Item {name: "${recipe.unlock_on_item}"}),(b:Recipe {craft_id: "${recipe.craft_id}"}) MERGE (a)-[:DISCOVERS]->(b)`,
 		parameters: {}
 	}
 }
